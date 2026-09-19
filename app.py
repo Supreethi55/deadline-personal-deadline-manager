@@ -138,6 +138,5 @@ def complete_deadline(deadline_id):
     db.session.commit()
     return jsonify(deadline.to_dict())
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)
