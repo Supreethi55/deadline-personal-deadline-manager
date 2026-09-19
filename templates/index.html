@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deadline | Personal deadline manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Deadline home"><span class="brand-mark">D</span><span>Deadline</span></a>
+    <div class="topbar-note"><span class="pulse"></span> Your academic command center</div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">PERSONAL DEADLINE MANAGER</p>
+        <h1>Make room for<br><em>what matters next.</em></h1>
+        <p class="hero-text">Turn the reminders in your head into a clear, calm plan. Write naturally and let Deadline organize the details.</p>
+      </div>
+      <div class="hero-orbit" aria-hidden="true"><span class="orbit-dot"></span><span class="orbit-ring"></span><strong>01</strong></div>
+    </section>
+
+    <section class="capture-panel" aria-labelledby="capture-heading">
+      <div class="capture-heading"><span class="capture-number">01</span><div><h2 id="capture-heading">Capture a deadline</h2><p>Try: “Submit DBMS assignment by Monday at 9 AM”</p></div></div>
+      <form id="analyze-form" class="capture-form">
+        <label class="sr-only" for="reminder-input">Your reminder</label>
+        <textarea id="reminder-input" rows="2" maxlength="1000" placeholder="What do you need to remember?" required></textarea>
+        <button class="primary-button" type="submit"><span id="button-label">Add deadline</span><span class="button-arrow">&#8599;</span></button>
+      </form>
+      <p id="form-message" class="form-message" role="status"></p>
+    </section>
+
+    <section class="overview" aria-labelledby="overview-heading">
+      <div class="section-heading"><div><p class="eyebrow">YOUR OVERVIEW</p><h2 id="overview-heading">Keep moving forward</h2></div><button class="refresh-button" id="refresh-button" title="Refresh deadlines" aria-label="Refresh deadlines">&#8635;</button></div>
+      <div class="stats-grid">
+        <button class="stat-card active" data-filter="all"><span class="stat-label">All deadlines</span><strong id="stat-all">0</strong><span class="stat-line"></span></button>
+        <button class="stat-card" data-filter="today"><span class="stat-label">Today</span><strong id="stat-today">0</strong><span class="stat-line"></span></button>
+        <button class="stat-card" data-filter="upcoming"><span class="stat-label">Upcoming</span><strong id="stat-upcoming">0</strong><span class="stat-line"></span></button>
+        <button class="stat-card" data-filter="overdue"><span class="stat-label">Overdue</span><strong id="stat-overdue">0</strong><span class="stat-line"></span></button>
+        <button class="stat-card" data-filter="completed"><span class="stat-label">Completed</span><strong id="stat-completed">0</strong><span class="stat-line"></span></button>
+      </div>
+    </section>
+
+    <section class="deadlines-section" aria-labelledby="list-heading">
+      <div class="list-toolbar"><div><p class="eyebrow">YOUR LIST</p><h2 id="list-heading">Deadlines</h2></div><div class="filter-tabs" role="tablist" aria-label="Deadline filters"><button class="filter-tab active" data-filter="all">All</button><button class="filter-tab" data-filter="today">Today</button><button class="filter-tab" data-filter="upcoming">Upcoming</button><button class="filter-tab" data-filter="overdue">Overdue</button><button class="filter-tab" data-filter="completed">Completed</button></div></div>
+      <div id="loading-state" class="state-box"><span class="spinner"></span><span>Loading your deadlines...</span></div>
+      <div id="empty-state" class="state-box hidden"><span class="empty-icon">&#10003;</span><strong id="empty-title">Nothing here yet</strong><span id="empty-text">Add your first deadline above and get it out of your head.</span></div>
+      <div id="error-state" class="state-box error-box hidden"><strong>Something went wrong</strong><span id="error-text">Please try again.</span><button class="text-button" id="retry-button">Try again</button></div>
+      <div id="deadline-list" class="deadline-list"></div>
+    </section>
+  </main>
+
+  <div id="preview-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="preview-title">
+    <div class="modal-card"><button class="modal-close" id="close-modal" aria-label="Close preview">&times;</button><p class="eyebrow">CONFIRM DEADLINE</p><h2 id="preview-title">Review your deadline</h2><p class="modal-intro">We understood your reminder like this. Make sure it looks right before saving.</p><form id="preview-form" class="preview-form"><label>Title<input id="preview-title-input" required maxlength="160"></label><div class="form-row"><label>Category<select id="preview-category"><option>Assignments</option><option>Exams</option><option>Applications</option><option>Placements</option><option>Projects</option><option>Study</option><option>Other</option></select></label><label>Priority<select id="preview-priority"><option>High</option><option>Medium</option><option>Low</option></select></label></div><label>Deadline<input id="preview-deadline" type="datetime-local"></label><label>Description<textarea id="preview-description" rows="3" maxlength="1000"></textarea></label><p id="preview-message" class="form-message" role="alert"></p><div class="modal-actions"><button type="button" class="secondary-button" id="cancel-preview">Cancel</button><button type="submit" class="primary-button">Save deadline <span class="button-arrow">&#8599;</span></button></div></form></div>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
